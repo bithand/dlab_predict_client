@@ -1,0 +1,5 @@
+﻿################################################################################
+# Diese .gitignore-Datei wurde von Microsoft(R) Visual Studio automatisch erstellt.
+################################################################################
+
+/src/Predictorian/bin/Debug/net6.0-windows
