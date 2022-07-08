@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Predictorian"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Predictorian - Asbestos" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <Border Grid.Row="1" BorderBrush="White" Name="border" BorderThickness="4">
+            <ListBox ScrollViewer.CanContentScroll="False"  Name="list_box" AllowDrop="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" DragEnter="ListBox_DragEnter" DragDrop.Drop="ListBox_Drop" DragLeave="list_box_DragLeave">
+                <ListBox.Items>
+                    <!--<StackPanel HorizontalAlignment="Stretch">
+                        <Border BorderBrush="AliceBlue" Height="50" BorderThickness="4"></Border>
+                    </StackPanel>-->
+                </ListBox.Items>
+            </ListBox>
+        </Border>
     </Grid>
 </Window>
