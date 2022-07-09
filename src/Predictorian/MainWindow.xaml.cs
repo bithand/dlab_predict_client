@@ -23,7 +23,7 @@ namespace Predictorian
         public MainWindow()
         {
             InitializeComponent();
-            
+           
         }
 
         public void StartTask(string file)
@@ -53,6 +53,8 @@ namespace Predictorian
                         list_box.Dispatcher.Invoke(() =>
                         {
                             dict_files[file].Source = new BitmapImage(new Uri(absolute_fileout));
+                            (dict_files[file].Tag as ProgressBar).Visibility = Visibility.Collapsed;
+                            dict_files[file].Visibility = Visibility.Visible;
                             list_box.InvalidateVisual();
                             Trace.WriteLine($"reading ->{absolute_fileout}");
                         });
@@ -74,7 +76,7 @@ namespace Predictorian
         private void ListBox_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effects = DragDropEffects.Copy;
-            border.BorderBrush = new SolidColorBrush(Colors.Green);
+            border.BorderBrush = new SolidColorBrush(Colors.LightGreen);
         }
 
         private void list_box_DragLeave(object sender, DragEventArgs e)
@@ -84,6 +86,7 @@ namespace Predictorian
         }
 
 
+        protected bool first_clear = false;
         /// <summary>
         /// 
         /// </summary>
@@ -91,6 +94,11 @@ namespace Predictorian
         /// <param name="e"></param>
         private void ListBox_Drop(object sender, DragEventArgs e)
         {
+            if (!first_clear)
+            {
+                list_box.Items.Clear();
+                first_clear = true;
+            }
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string file in files)
             {
@@ -99,12 +107,25 @@ namespace Predictorian
                 {
                     if (!dict_files.ContainsKey(file))
                     {
-                        StartTask(file);
-                        AddMeasurementItem(file);
+                        AddMeasurementItem(file);                      
+                        
+                        
                     }
                 }
             }
             border.BorderBrush = new SolidColorBrush(Colors.White);
+            Thread.Sleep(500);
+            foreach (string file in files)
+            {
+                Trace.WriteLine($"file dropped {file}");
+                if (file.EndsWith(".jpg") || file.EndsWith(".jpeg"))
+                {
+                    if (dict_files.ContainsKey(file))
+                    {
+                        StartTask(file);
+                    }
+                }
+            }
         }
 
         Dictionary<string, Image> dict_files = new Dictionary<string, Image>();
@@ -113,12 +134,20 @@ namespace Predictorian
             list_box.Dispatcher.Invoke(() =>
             {
                 Border bor = new Border() { BorderBrush = new SolidColorBrush(Colors.AliceBlue), BorderThickness = new Thickness(4), Height = 400 };
+                StackPanel sp = new StackPanel();
+                sp.Children.Add(new Label() { Content = "[" + DateTime.Now.ToString("yyyy-MM-dd-HH:mm:ss") + "] " + Path.GetFileName(filename) });
                 DockPanel pan = new DockPanel() { LastChildFill = false };
-                pan.Children.Add(new Image() { Source = new BitmapImage(new Uri(filename)),Width=400,Margin=new Thickness(10,0,0,0)});
-                Image img = new Image() { Source = null, Width = 400, Margin = new Thickness(10, 0, 0, 0) };
+                pan.Children.Add(new Image() { Source = new BitmapImage(new Uri(filename)),Width=400,Margin=new Thickness(20,0,0,0)});
+                ProgressBar pb = new ProgressBar() { IsIndeterminate = true, Height = 15,Width=400,Margin=new Thickness(20,0,0,0),Foreground=new SolidColorBrush(Colors.LightBlue),Background=new SolidColorBrush(Colors.LightGray),BorderThickness=new Thickness(0) };
+               
+
+                Image img = new Image() { Source = null, Width = 400, Margin = new Thickness(10, 0, 0, 0),Tag=pb,Visibility=Visibility.Collapsed };
+                
                 pan.Children.Add(img);
+                pan.Children.Add(pb);
                 dict_files.Add(filename, img);
-                bor.Child = pan;
+                sp.Children.Add(pan);
+                bor.Child = sp;
                 list_box.Items.Add(bor);
             });
         }

@@ -1,26 +1,31 @@
 ﻿<Window x:Class="Predictorian.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Predictorian"
         mc:Ignorable="d"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Predictorian - Asbestos" Height="450" Width="800">
+        <!--="pack://application:,,,/Predictorian;component/Resources/main_icon.ico"-->
+        
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
-
-        <Border Grid.Row="1" BorderBrush="White" Name="border" BorderThickness="4">
+        <materialDesign:Card Grid.Row="1" Margin="10">
+        <Border BorderBrush="White" Name="border" BorderThickness="4">
             <ListBox ScrollViewer.CanContentScroll="False"  Name="list_box" AllowDrop="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" DragEnter="ListBox_DragEnter" DragDrop.Drop="ListBox_Drop" DragLeave="list_box_DragLeave">
                 <ListBox.Items>
-                    <!--<StackPanel HorizontalAlignment="Stretch">
-                        <Border BorderBrush="AliceBlue" Height="50" BorderThickness="4"></Border>
-                    </StackPanel>-->
+                    
+                    <Label Height="100" HorizontalContentAlignment="Center"  FontSize="20" FontWeight="ExtraBold" Foreground="DarkGray">++ DRAG FILES HERE ++</Label>
                 </ListBox.Items>
             </ListBox>
         </Border>
+        </materialDesign:Card>
     </Grid>
 </Window>
