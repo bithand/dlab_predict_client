@@ -109,7 +109,7 @@ namespace Predictorian
                 if (file.EndsWith(".jpg") || file.EndsWith(".jpeg") || file.EndsWith(".bmp") || file.EndsWith(".tiff"))
                 {
                     //check transparency
-                    if (file.EndsWith(".tiff") || file.EndsWith(".png"))
+                    if (file.EndsWith(".tiff") || file.EndsWith(".png") || file.EndsWith(".bmp"))
                     {
                         using(var bitmap = new Bitmap(file))
                         {
@@ -133,8 +133,20 @@ namespace Predictorian
             foreach (string file in files)
             {
                 Trace.WriteLine($"file dropped {file}");
-                if (file.EndsWith(".jpg") || file.EndsWith(".jpeg"))
+                if (file.EndsWith(".jpg") || file.EndsWith(".jpeg") || file.EndsWith(".bmp") || file.EndsWith(".tiff") || file.EndsWith(".bmp"))
                 {
+                    //check transparency
+                    if (file.EndsWith(".tiff") || file.EndsWith(".png"))
+                    {
+                        using (var bitmap = new Bitmap(file))
+                        {
+                            if (HasTransparency(bitmap))
+                            {
+                                continue;
+                            }
+                        }
+                    }
+
                     if (dict_files.ContainsKey(file))
                     {
                         StartTask(file);
