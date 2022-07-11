@@ -8,24 +8,28 @@
         mc:Ignorable="d"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Predictorian - Asbestos" Height="450" Width="800">
-        <!--="pack://application:,,,/Predictorian;component/Resources/main_icon.ico"-->
-        
+        Title="Predictorian - Asbestos v.1.22.0711" Height="450" Width="800">
+    <!--="pack://application:,,,/Predictorian;component/Resources/main_icon.ico"-->
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="119*"/>
+            <ColumnDefinition Width="681*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
-        <materialDesign:Card Grid.Row="1" Margin="10">
-        <Border BorderBrush="White" Name="border" BorderThickness="4">
-            <ListBox ScrollViewer.CanContentScroll="False"  Name="list_box" AllowDrop="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" DragEnter="ListBox_DragEnter" DragDrop.Drop="ListBox_Drop" DragLeave="list_box_DragLeave">
-                <ListBox.Items>
-                    
-                    <Label Height="100" HorizontalContentAlignment="Center"  FontSize="20" FontWeight="ExtraBold" Foreground="DarkGray">++ DRAG FILES HERE ++</Label>
-                </ListBox.Items>
-            </ListBox>
-        </Border>
+        <materialDesign:Card Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="2">
+            <Border BorderBrush="White" Name="border" BorderThickness="4">
+                <ListBox ScrollViewer.CanContentScroll="False"  Name="list_box" AllowDrop="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" DragEnter="ListBox_DragEnter" DragDrop.Drop="ListBox_Drop" DragLeave="list_box_DragLeave">
+                    <ListBox.Items>
+
+                        <Label Height="100" HorizontalContentAlignment="Center"  FontSize="20" FontWeight="ExtraBold" Foreground="DarkGray">++ DRAG FILES HERE ++</Label>
+                    </ListBox.Items>
+                </ListBox>
+            </Border>
         </materialDesign:Card>
     </Grid>
 </Window>
