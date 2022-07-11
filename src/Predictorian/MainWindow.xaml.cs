@@ -106,7 +106,7 @@ namespace Predictorian
             foreach (string file in files)
             {
                 Trace.WriteLine($"file dropped {file}");
-                if (file.EndsWith(".jpg") || file.EndsWith(".jpeg") || file.EndsWith(".bmp") || file.EndsWith(".tiff"))
+                if (file.EndsWith(".jpg") || file.EndsWith(".jpeg") || file.EndsWith(".bmp") || file.EndsWith(".tiff") || file.EndsWith(".png"))
                 {
                     //check transparency
                     if (file.EndsWith(".tiff") || file.EndsWith(".png") || file.EndsWith(".bmp"))
@@ -122,14 +122,15 @@ namespace Predictorian
 
                     if (!dict_files.ContainsKey(file))
                     {
-                        AddMeasurementItem(file);                      
-                        
-                        
+                        AddMeasurementItem(file);
+                        StartTask(file);
+
                     }
                 }
             }
             border.BorderBrush = new SolidColorBrush(Colors.White);
-            Thread.Sleep(500);
+           
+            /*Thread.Sleep(500);
             foreach (string file in files)
             {
                 Trace.WriteLine($"file dropped {file}");
@@ -149,10 +150,10 @@ namespace Predictorian
 
                     if (dict_files.ContainsKey(file))
                     {
-                        StartTask(file);
+                       
                     }
                 }
-            }
+            }*/
         }
 
         Dictionary<string, System.Windows.Controls.Image> dict_files = new Dictionary<string, System.Windows.Controls.Image>();
